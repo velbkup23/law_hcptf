@@ -1,12 +1,20 @@
 variable "app-name" {
   description = "App-name for the name of the workspace."
   type        = string
-  default     = "law-workspace"
 }
 
-variable "mcd_law" {
-  type = list(object({
-    name                                    = string
+variable "location" {
+  description = "The Azure region where the workspace will be created."
+  type        = string
+}
+
+variable "resource_group_name" {
+  description = "The name of the resource group where the workspace will be created."
+  type        = string
+}
+
+variable "law_settings" {
+  type = object({
     sku                                     = optional(string)
     retention_in_days                       = optional(number)
     allow_resource_only_permissions         = optional(bool)
@@ -20,5 +28,6 @@ variable "mcd_law" {
     reservation_capacity_in_gb_per_day      = optional(number)
     data_collection_rule_id                 = optional(string)
     immediate_data_purge_on_30_days_enabled = optional(bool)
-  }))
+  })
+  default = {}
 }
