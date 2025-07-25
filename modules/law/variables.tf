@@ -13,6 +13,13 @@ variable "resource_group_name" {
   type        = string
 }
 
+variable "sequence" {
+  description = "A sequence number to append to the workspace name for uniqueness."
+  type        = string
+  default     = "1"
+  
+}
+
 variable "law_settings" {
   type = object({
     sku                                     = optional(string)

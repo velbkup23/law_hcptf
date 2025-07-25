@@ -4,7 +4,12 @@ variable "app-name" {
   default     = "law-workspace"
 }
 
-variable "mcd_law" {
+variable "law_deploy" {
+  default = true
+}
+
+
+variable "monitor_resources" {
   type = list(object({
     name                                    = string
     sku                                     = optional(string)

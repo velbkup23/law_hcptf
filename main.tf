@@ -6,12 +6,14 @@ resource "azurerm_resource_group" "law_rg" {
 
 module "law" {
   source   = "./modules/law"
-  for_each = { for item in var.mcd_law : item.name => item }
+  for_each = { for item in local.flattened_monitor_resources : "${item.name}-${item.sequence}" => item if var.law_deploy}
 
   app-name            = each.value.name
   location            = local.location
   resource_group_name = azurerm_resource_group.law_rg.name
   law_settings        = each.value
+  sequence            = each.value.sequence
+  
 }
 
 
