@@ -1,5 +1,5 @@
 resource "azurerm_log_analytics_workspace" "law" {
-  name                                    = var.app-name
+  name                                    = format("%s-%03d", var.app-name, var.sequence)
   location                                = var.location
   resource_group_name                     = var.resource_group_name
   sku                                     = lookup(var.law_settings, "sku", "PerGB2018")

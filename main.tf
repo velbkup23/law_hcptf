@@ -6,13 +6,31 @@ resource "azurerm_resource_group" "law_rg" {
 
 module "law" {
   source   = "./modules/law"
-  for_each = { for item in var.mcd_law : item.name => item }
+  for_each = { for item in local.flattened_monitor_resources : "${item.name}-${item.sequence}" => item if var.law_deploy }
 
   app-name            = each.value.name
   location            = local.location
   resource_group_name = azurerm_resource_group.law_rg.name
   law_settings        = each.value
+  sequence            = each.value.sequence
+
 }
+
+# resource "azurerm_monitor_diagnostic_setting" "law" {
+#   for_each = { for item in local.flattened_monitor_resources : "${item.name}-${item.sequence}" => item if var.law_deploy }
+
+#   name               = "${each.value.name}-diagnostic-setting"
+#   target_resource_id = "/subscriptions/87b95067-795f-408e-9870-ad7cc14078be/resourceGroups/Vel_AVDM/providers/Microsoft.Compute/virtualMachines/velsh-0"
+
+#   log_analytics_workspace_id = module.law[each.key].log_analytics_workspace_id
+
+#  enabled_log {
+#     # category = "AuditEvent"
+#   }
+
+  
+
+# }
 
 
 
