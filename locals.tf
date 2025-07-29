@@ -1,7 +1,7 @@
 locals {
   location = "centralindia"
 
-flattened_monitor_resources = [
+  flattened_monitor_resources = [
     for resource in var.monitor_resources : merge(
       resource,
       {

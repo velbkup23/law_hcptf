@@ -26,4 +26,8 @@ variable "monitor_resources" {
     data_collection_rule_id                 = optional(string)
     immediate_data_purge_on_30_days_enabled = optional(bool)
   }))
+
+  default = [{
+    name = "mcdlaw"
+  }]
 }
